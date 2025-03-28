@@ -90,5 +90,15 @@ This is the place for you to write reflections:
 
 #### Reflection Subscriber-1
 
+* We use utilize RwLock<> than Mutex<> because Vec of Notifications are read more frequently but written less frequently. RwLock<> allows many reads simultaneously but maintains exclusive write access, which will be better performing than using Mutex<>, as it would lock out every thread from taking any action, reducing performance and concurrency.
+
+* Rust doesn't allow direct mutation of static variables (without using mechanisms like `lazy_static`) due to its core focus on memory safety and thread safety guarantees. Unlike Java, where you can easily modify static variables through static methods, Rust imposes stricter rules for several important reasons:
+
+1. **Thread Safety**: Static variables in Rust have a 'static lifetime and can be accessed from any thread at any time. Allowing mutation without synchronization would create data races in concurrent environments.
+
+2. **Ownership System**: Rust's ownership system, which prevents memory safety issues, has no clear owner for static variables since they exist for the program's entire lifetime.
+
+ 
+
 #### Reflection Subscriber-2
 
