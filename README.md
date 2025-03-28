@@ -92,13 +92,42 @@ This is the place for you to write reflections:
 
 * We use utilize RwLock<> than Mutex<> because Vec of Notifications are read more frequently but written less frequently. RwLock<> allows many reads simultaneously but maintains exclusive write access, which will be better performing than using Mutex<>, as it would lock out every thread from taking any action, reducing performance and concurrency.
 
-* Rust doesn't allow direct mutation of static variables (without using mechanisms like `lazy_static`) due to its core focus on memory safety and thread safety guarantees. Unlike Java, where you can easily modify static variables through static methods, Rust imposes stricter rules for several important reasons:
+* Rust doesn't allow mutating static variables directly (without using mechanisms like `lazy_static`) since its basic priority is memory safety and thread safety guarantees. Unlike Java, where you are free to modify static variables through static methods, Rust has more stringent rules for a variety of important reasons:
 
-1. **Thread Safety**: Static variables in Rust have a 'static lifetime and can be accessed from any thread at any time. Allowing mutation without synchronization would create data races in concurrent environments.
+1. **Thread Safety**: Static variables in Rust have a 'static lifetime and can be accessed from any thread at any time. Mutation without synchronization would result in data races when used in multithreaded environments.
 
-2. **Ownership System**: Rust's ownership system, which prevents memory safety issues, has no clear owner for static variables since they exist for the program's entire lifetime.
-
- 
+2. **Ownership System**: Rust's ownership system, which prevents memory safety issues, does not find an owner for static variables since they exist throughout the life of the program.
 
 #### Reflection Subscriber-2
 
+- **Exploring beyond the tutorial steps**
+
+    Yes, I explored into the `src/lib.rs` file that contains the core implementation of the notification system. Out of this experience, I gained knowledge of many important concepts:
+
+    - The application of the Observer pattern through the `Publisher` trait and `Subscriber` trait, showing Rust's trait system enabling clean interface definitions
+    - Rust's support for concurrency via atomic reference counting (`Arc`) and read-write locks (`RwLock`)
+    - Use of `DashMap` as a lockless concurrent hash map implementation supporting thread-safe access without locking on each operation
+    - Rust async/await syntax implementation for handling WebSocket connections asynchronously
+    - Implementation of serde-based serialization/deserialization for sending notifications between services
+
+    This study taught me why the notification system architecture supports decoupled publisher-subscriber communication and how Rust's safety features extend to concurrency.
+
+- **Scaling with Observer pattern**
+
+    Observer pattern renders it extremely simple to introduce new subscribers in the system because:
+
+    - New subscribers need to implement the `Subscriber` trait without modifying the publisher code
+    - The registration process allows dynamic addition and removal of subscribers at runtime
+    - Subscribers are able to process notifications independently according to their respective individual needs
+
+    When spawning multiple instances of the Receiver app, I found it simple to associate each instance with the notification system because the observer pattern handles the association and notification dispatching for you.
+
+    Scaling with multiple instances of the Main app (publisher) however brings some additional issues:
+
+    - Each Main app instance would need some way of remembering which notifications had already been sent in order to prevent duplicates
+    - There would be a need for a central registry or message broker to notify all subscribers from all publisher instances
+    - The system would need additional logic to handle failure of publisher instances or network partitions
+
+-  **Postman Collection**
+
+        I have included tests in the Postman collection to confirm my endpoints, which include listening to various product kinds and having numerous subscriptions. This has helped to guarantee that the endpoints function as planned and provide accurate data. The system's general stability is increased by writing tests and increasing documentation, which also aid in handling edge cases, validating both happy and unpleasant pathways, and checking code coverage.
