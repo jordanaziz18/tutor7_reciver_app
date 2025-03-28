@@ -130,4 +130,4 @@ This is the place for you to write reflections:
 
 -  **Postman Collection**
 
-        I have included tests in the Postman collection to confirm my endpoints, which include listening to various product kinds and having numerous subscriptions. This has helped to guarantee that the endpoints function as planned and provide accurate data. The system's general stability is increased by writing tests and increasing documentation, which also aid in handling edge cases, validating both happy and unpleasant pathways, and checking code coverage.
+    I have included tests in the Postman collection to confirm my endpoints, which include listening to various product kinds and having numerous subscriptions. This has helped to guarantee that the endpoints function as planned and provide accurate data. The system's general stability is increased by writing tests and increasing documentation, which also aid in handling edge cases, validating both happy and unpleasant pathways, and checking code coverage.
