@@ -1,3 +1,4 @@
+
 # BambangShop Receiver App
 Tutorial and Example for Advanced Programming 2024 - Faculty of Computer Science, Universitas Indonesia
 
@@ -35,12 +36,13 @@ You can install Postman via this website: https://www.postman.com/downloads/
 ## How to Run in Development Environment
 1.  Set up environment variables first by creating `.env` file.
     Here is the example of `.env` file:
-    ```bash
+```sh
     ROCKET_PORT=8001
     APP_INSTANCE_ROOT_URL=http://localhost:${ROCKET_PORT}
     APP_PUBLISHER_ROOT_URL=http://localhost:8000
     APP_INSTANCE_NAME=Safira Sudrajat
-    ```
+```
+
     Here are the details of each environment variable:
     | variable                | type   | description                                                     |
     |-------------------------|--------|-----------------------------------------------------------------|
@@ -79,6 +81,8 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [ ] Commit: `Implement list function in Notification controller.`
     -   [ ] Write answers of your learning module's "Reflection Subscriber-2" questions in this README.
 
+
+
 ## Your Reflections
 This is the place for you to write reflections:
 
@@ -87,3 +91,4 @@ This is the place for you to write reflections:
 #### Reflection Subscriber-1
 
 #### Reflection Subscriber-2
+
